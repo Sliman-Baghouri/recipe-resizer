@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+	<link rel="stylesheet" type="text/css" href="main.css">
+	<title>Recipe Calculator</title>
+</head>
+
+<body>
+
+	<section>
+		<div class="container">
+			<header>
+			<div class="logo">
+				<img src="assets/logo.webp" alt="Logo">
+			</div>
+
+			<div class="top-half">
+				<h1>Recipe Converter</h1>			
+				<p>Multiply your recipes easily using our recipe converter tool. Fill out the information below and click Resize to get started.</p>	
+			</div>
+
+			</header>
+		</div>
+	</section>
+	<section id="calculator">
+		<div class="container">
+			<div class="main-holder">
+				
+				<div class="left-side">
+					<h2>Your orignial recipe</h2>
+					<div class="contact-wrap">
+					  <form class="material-form" action="#">
+					    <div class="input-block floating-field">
+					      <label>Recipe Name</label>
+					      <input value="" type="text" class="form-control r-name">
+					    </div>
+			<!-- 		    <div class="input-block floating-field">
+					      <label>Email ID</label>
+					      <input type="text" class="form-control">
+					    </div> -->
+<!-- 					    <div class="error-label">Email ID already exists.</div>
+ -->					   
+					    <div class="input-block floating-field textarea">
+					      <label>Notes</label>
+					      <textarea rows="3" class="form-control"></textarea>
+					    </div>
+					    <div class="converter-inputs">
+					    <div class="input-block floating-field">
+					      <label>Original Recipe</label>
+					      <input value="" required type="text" class="form-control originalN">
+					    </div>
+						<svg width="81" height="142" viewBox="0 0 81 142" fill="none" xmlns="http://www.w3.org/2000/svg">
+						<path d="M5 5.5L70.5 71L5 136.5" stroke="black" stroke-width="14"/>
+						</svg>
+
+					    <div class="input-block floating-field">
+					      <label>Needs to serve</label>
+					      <input value="" required type="text" class="form-control needsToServeN">
+					    </div>					    
+					    </div>
+
+						<h3>Ingredients</h3>
+						<p>Enter the ingredients of your original recipe.</p>
+						<div class="ing-holder">
+							<div class="ing-qt">
+								<div class="input-block input-qty floating-field">
+						      <label>Qty</label>
+						      <input value="" type="text" required class="form-control input-qtyN">
+						    </div>	
+	  						<div class="select-block">
+						      <label>Measurement</label>
+						      <div class="custom-select">
+						        <div class="active-list"></div>
+						        <input type="text" class="list-field" value="Australia" />
+						        <ul class="drop-down-list">
+						          <li>Milligrams</li>
+						          <li>Grams</li>
+						          <li>Kilograms</li>
+						          <li>Milliliters</li>
+						          <li>Liters</li>
+						          <li>Kiloliters</li>
+						        </ul>
+						      </div>
+						    </div>
+							<div class="input-block floating-field">
+						      <label>Ingredient Name</label>
+						      <input value="" type="text" class="form-control input-ing">
+						    </div>	
+						    
+							</div>
+							<div class="ing-qt">
+								<div class="input-block input-qty floating-field">
+						      <label>Qty</label>
+						      <input value="" type="text" class="form-control input-qtyN">
+						    </div>	
+	  						<div class="select-block">
+						      <label>Measurement</label>
+						      <div class="custom-select">
+						        <div class="active-list"></div>
+						        <input type="text" class="list-field" value="Australia" />
+						        <ul class="drop-down-list">
+						          <li>Milligrams</li>
+						          <li>Grams</li>
+						          <li>Kilograms</li>
+						          <li>Milliliters</li>
+						          <li>Liters</li>
+						          <li>Kiloliters</li>
+						        </ul>
+						      </div>
+						    </div>
+							<div class="input-block floating-field">
+						      <label>Ingredient Name</label>
+						      <input value="" type="text" class="form-control input-ing">
+						    </div>	
+						    
+							</div>
+					
+						</div>
+
+						<div class="cta-holder">
+						    <button class="btn square-button material-btn add-btn">
+
+					<svg id="Capa_1" enable-background="new 0 0 512 512" height="512" viewBox="0 0 512 512" width="512" xmlns="http://www.w3.org/2000/svg"><g><path d="m489.5 203.5h-181v-181c0-12.406-10.094-22.5-22.5-22.5h-60c-12.407 0-22.5 10.094-22.5 22.5v181h-181c-12.407 0-22.5 10.094-22.5 22.5v60c0 12.406 10.093 22.5 22.5 22.5h15c4.142 0 7.5-3.357 7.5-7.5s-3.358-7.5-7.5-7.5h-15c-4.136 0-7.5-3.364-7.5-7.5v-60c0-4.136 3.364-7.5 7.5-7.5h188.5c4.142 0 7.5-3.357 7.5-7.5v-188.5c0-4.136 3.364-7.5 7.5-7.5h60c4.136 0 7.5 3.364 7.5 7.5v188.5c0 4.143 3.357 7.5 7.5 7.5h188.5c4.136 0 7.5 3.364 7.5 7.5v60c0 4.136-3.364 7.5-7.5 7.5h-188.5c-4.143 0-7.5 3.357-7.5 7.5v188.5c0 4.136-3.364 7.5-7.5 7.5h-60c-4.136 0-7.5-3.364-7.5-7.5v-188.5c0-4.143-3.358-7.5-7.5-7.5h-143.5c-4.142 0-7.5 3.357-7.5 7.5s3.358 7.5 7.5 7.5h136v181c0 12.406 10.093 22.5 22.5 22.5h60c12.406 0 22.5-10.094 22.5-22.5v-181h181c12.406 0 22.5-10.094 22.5-22.5v-60c0-12.406-10.094-22.5-22.5-22.5z"/></g></svg>
+						    Add Ingredients</button>
+
+						    <button class="btn square-button material-btn btn-submit">Resize</button>
+						</div>
+					  </form>
+					</div>
+				</div>
+				
+				<div class="right-side">
+					<div style="display: none;" class="results-section">
+				
+						<div class="resized-r">
+							<div class="r-info-holder">
+
+							</div>
+							<ul class="resized-ul">
+								
+							</ul>
+						</div>
+						<div class="original-r">
+							<div class="r-info-holder">
+
+							</div>
+							<ul class="original-ul">
+								
+							</ul>
+						</div>		
+					</div>
+					<div class="placeholder-section">
+						<img src="assets/Recipe.png" alt="Recipe Illustration">	
+						<h2>Add some ingredients to get started.</h2>
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
+	<script src="validation.js"></script>
+	<script src="main.js"></script>
+</body>
+</html>
