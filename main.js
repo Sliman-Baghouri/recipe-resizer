@@ -1,5 +1,8 @@
 $(document).ready(function(){
 
+
+
+
 	function initDesign(){
 //material contact form animation
 		var floatingField = $(".material-form .floating-field").find(".form-control");
@@ -104,7 +107,7 @@ $(document).ready(function(){
 								  ing: $(ing).find('.input-ing').val()
 								}
 					let reObj = {
-								  qty: Number($(ing).find('input').val()) * (needsToServe/originNumber),
+								  qty: (Number($(ing).find('input').val()) * (needsToServe/originNumber)).toFixed(2),
 								    m:  $(ing).find('.active-list').text(),
 								  ing: $(ing).find('.input-ing').val()
 					}
@@ -137,6 +140,16 @@ $(document).ready(function(){
 					$('.resized-ul').append(`<li>${item.qty} ${item.m} ${item.ing}</li>`)
 				})
 
+
+		  }else{
+			new Noty({
+			    type: 'error',
+			    layout: 'topLeft',
+			    text: '<h4>A field is missing. Please fill all inputs and options</h4>',
+			    timeout:3000,
+			    progressBar:true
+			}).show(2000);
+			return false
 
 		  }
 		});

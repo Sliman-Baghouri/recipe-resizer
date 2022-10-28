@@ -535,6 +535,15 @@ justify-content: center;
   .top-half{
     width: auto;
   }
+
+  .original-r, .resized-r{
+    width: 95%;
+    margin-left: 0;
+  }
+
+  .ing-qt .select-block{
+    width: 140%;
+  }
 } 
 
 .resized-ul, .original-ul{
