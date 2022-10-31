@@ -466,6 +466,7 @@ html{
 }
 
 .original-r, .resized-r{
+    position: relative;
     width: 80%;
     box-shadow: 1px 4px 34px rgb(0 0 0 / 10%);
     padding: 10px;
@@ -568,13 +569,29 @@ justify-content: center;
   position: relative;
 }
 .resized-r:after {
-    width: 116px;
+    width: 139px;
     height: 42px;
     display: block;
     position: absolute;
     top: 0;
     background: #ffc10759;
-    content: 'New Recipe 📄';
+    content: 'Resized Recipe 📄';
+    right: 0;
+    line-height: 2.5;
+    text-align: center;
+    background-image: linear-gradient(90deg, #ffffff00 0px, #ffffff66 30px, #afffb200 60px);
+    background-size: calc(160px + 160px);
+    animation: refresh 1.2s infinite linear;
+}
+
+.original-r:after{
+   width: 139px;
+    height: 42px;
+    display: block;
+    position: absolute;
+    top: 0;
+    background: #aba69859;
+    content: 'Original Recipe 📄';
     right: 0;
     line-height: 2.5;
     text-align: center;
@@ -606,4 +623,9 @@ justify-content: center;
 
 #calculator{
   margin-bottom: 10%;
+}
+
+input#metric, input#imperial {
+    margin-bottom: 5%;
+    margin-right: 0%;
 }

@@ -4,7 +4,13 @@ $(document).ready(function(){
 
 
 	function initDesign(){
-//material contact form animation
+
+		// imperial / metric units
+
+	
+
+
+		//material contact form animation
 		var floatingField = $(".material-form .floating-field").find(".form-control");
 		var formItem = $(".material-form .input-block").find(".form-control");
 
@@ -62,7 +68,50 @@ $(document).ready(function(){
 		  listParent.find("input.list-field").attr("value", $(this).text());
 		});
 
+	
 	}
+				
+	$("#imperial, #imperial-l, #metric").click(function(){
+			if($(this).attr('id') === 'imperial'){
+				$('.drop-down-list').empty().append(`
+						  <li>Cups</li>
+				          <li>Dashes</li>
+				          <li>Ounces</li>
+				          <li>Pinches</li>
+				          <li>Tablespoon</li>
+				          <li>Teaspoons</li>
+				          <li>Pounds</li>
+				          <li>Each</li>
+
+					`);
+				}else if($(this).attr('id') === 'metric'){
+				$('.drop-down-list').empty().append(`
+					   <li>Milligrams</li>
+			          <li>Grams</li>
+			          <li>Kilograms</li>
+			          <li>Milliliters</li>
+			          <li>Liters</li>
+			          <li>Kiloliters</li>
+					`);
+
+				}else{
+				$('.drop-down-list').empty().append(`
+						  <li>Cups</li>
+				          <li>Gallons</li>
+				          <li>Ounces</li>
+				          <li>Pints</li>
+				          <li>Quarts</li>
+				          <li>Tablespoons</li>
+				          <li>Teaspoons</li>
+
+					`);
+
+				}
+				initDesign();
+
+			})
+
+
 	initDesign();
 
 	// Validating the inputs
@@ -187,6 +236,20 @@ $(document).ready(function(){
 		      <input value="" type="text" class="form-control input-ing">
 		    </div>	
 			</div>`)	
+
+			// reset units
+			let currentUnits;
+
+			$('.unit-holder').find('input').each(function(b,item){
+  		  		if($(item).is(":checked")){
+        			currentUnits = $(item).attr('id')
+    			}
+    
+			});
+
+			$('#metric').click()
+			$('#' + currentUnits).click();
+
 		  initDesign();
 		  inputValidation();
 		});
