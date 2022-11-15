@@ -528,6 +528,14 @@ justify-content: center;
 } 
 
 @media (max-width: 500px) {
+    .foodRes{
+      margin-right: 0 !important;
+      width: 129px !important;
+    }
+    .material-form .input-block label{
+      width: 150% !important;
+    }
+
   header{
     flex-direction: column;
     text-align: center;
@@ -629,3 +637,30 @@ input#metric, input#imperial {
     margin-bottom: 5%;
     margin-right: 0%;
 }
+
+/*input autocomplete*/
+
+  .foodSuggest.required{
+    font-size:15px;
+  }
+  .foodRes{
+    z-index: 99999;
+    background:#FFF;
+    position: absolute;
+        margin-right: 0;
+    width: 100%;
+  }
+  p.foodP {
+    padding: 12px;
+    border-bottom: 1px solid #EEE;
+    margin: 0;
+  font-size:15px;
+    box-shadow: 13px 1px 10px 0px rgb(0 0 0 / 1%);
+    transition: .3s;
+}
+  
+  p.foodP:hover{
+    background:#EEE;
+    transition: .3s;
+  }
+
