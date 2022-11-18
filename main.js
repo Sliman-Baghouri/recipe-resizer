@@ -130,79 +130,189 @@ $(document).ready(function(ev){
 	$('.btn-submit').click(function(e){
 		// validation if input empty
 		e.preventDefault();
-		$('.originalN, .needsToServeN, .input-qtyN, .r-name').each(function() {
-		  if ((!$(this).val() == '') && (!$('.active-list').is(':empty') )) {
-			$('.placeholder-section').css({display:'none'})
-			$('.results-section').css({display:'block'})
+		let unitIndex = {Cups:1, Dashes:2,Ounces:3,Pinches:4,Tablespoon:5,Teaspoons:6,Pounds:7,Each:8,Cups:9,Gallons:10,Ounces:11,Pints:12,Quarts:13,Tablespoons:14,Teaspoons:15}
+		
+		if($('#imperial').is(':checked') || $('#imperial-l').is(':checked')){
 
-			// clearing past values
-			$('.original-ul').empty(); 
-			$('.resized-ul').empty(); 
+			$('.img-placeholder, .h2-placeholder').css({display:'none'});
+			$('.box , .loadingp').css({display:'block'});
 
-			
+			let dataCalc = {
+			   spec:[],
+			   "ors":$('.originalN').val(),
+			   "nts":$('.needsToServeN').val()
+			};
 
-			let originNumber = $('.originalN').val(), 
-				needsToServe = $('.needsToServeN').val(),
-				rName = $('.r-name').val();
+			$('.ing-holder .ing-qt').each(function(e,ing){
 
-			console.log(originNumber, needsToServe, rName);
-			let resizeObj = [];
-			let resultObj = [];
+				let fillSpec = {
+							  qty: $(ing).find('input').val(),
+							    m:  $(ing).find('.active-list').text(),
+							  ing: $(ing).find('.input-ing').val()
+							}
 
-				$('.ing-holder .ing-qt').each(function(e,ing){
+				dataCalc.spec.push(fillSpec);
+			})	
+			dataCalc.spec.forEach((i)=>{i.m = (unitIndex[i.m]).toString()});
 
-					let ingObj = {
-								  qty: $(ing).find('input').val(),
-								    m:  $(ing).find('.active-list').text(),
-								  ing: $(ing).find('.input-ing').val()
-								}
-					let reObj = {
-								  qty: (Number($(ing).find('input').val()) * (needsToServe/originNumber)).toFixed(2),
-								    m:  $(ing).find('.active-list').text(),
-								  ing: $(ing).find('.input-ing').val()
-					}
 
-					resizeObj.push(ingObj);
-					resultObj.push(reObj);
+			(async () => {
+			  const rawResponse = await fetch('https://foodtrucker-api-production.up.railway.app/calc', {
+			    method: 'POST',
+			    headers: {
+			      'Accept': 'application/json',
+			      'Content-Type': 'application/json'
+			    },						
+			    body: JSON.stringify(dataCalc)
+			  });
+			  const content = await rawResponse.json();
 
-				})	
+			  console.log(content);
 
-				// orignial code: 
-				$('.original-r .r-info-holder').empty().append(
-							`<h3>${rName}</h3>
-							<p>Serves: ${originNumber}</p>
-							<h3 class='ing-h3'>Ingredients</h3>`)
+			  	$('.originalN, .needsToServeN, .input-qtyN, .r-name').each(function() {
+			  if ((!$(this).val() == '') && (!$('.active-list').is(':empty') )) {
+				$('.placeholder-section').css({display:'none'})
+				$('.results-section').css({display:'block'})
+
+				// clearing past values
+				$('.original-ul').empty(); 
+				$('.resized-ul').empty(); 
+
+				let originNumber = $('.originalN').val(), 
+					needsToServe = $('.needsToServeN').val(),
+					rName = $('.r-name').val();
+
+				let resizeObj = [];
+				let resultObj = [];
+
+					$('.ing-holder .ing-qt').each(function(e,ing){
+
+						let ingObj = {
+									  qty: $(ing).find('input').val(),
+									    m:  $(ing).find('.active-list').text(),
+									  ing: $(ing).find('.input-ing').val()
+									}
+
+						resizeObj.push(ingObj);
+					})	
+
+					// orignial code: 
+					$('.original-r .r-info-holder').empty().append(
+								`<h3>${rName}</h3>
+								<p>Serves: ${originNumber}</p>
+								<h3 class='ing-h3'>Ingredients</h3>`)
+					
+
+					resizeObj.forEach((item)=>{
+						$('.original-ul').append(`<li>${item.qty} ${item.m} ${item.ing}</li>`)
+					})
+
+			// result code: 
+			$('.resized-r .r-info-holder').empty().append(
+								`<h3>${rName} (Resized)</h3>
+								<p>Serves: ${needsToServe}</p>
+								<h3 class='ing-h3'>Ingredients</h3>`)
+			$('.resized-r .resized-ul').empty().append(content)
+					
+
+
+			  }else{
+				new Noty({
+				    type: 'error',
+				    layout: 'topLeft',
+				    text: '<h4>A field is missing. Please fill all inputs and options</h4>',
+				    timeout:3000,
+				    progressBar:true
+				}).show(2000);
+				return false
+
+			  }
+			});
+
+
+			})();
+
+		
+
+
+		}else{
+			$('.originalN, .needsToServeN, .input-qtyN, .r-name').each(function() {
+			  if ((!$(this).val() == '') && (!$('.active-list').is(':empty') )) {
+				$('.placeholder-section').css({display:'none'})
+				$('.results-section').css({display:'block'})
+
+				// clearing past values
+				$('.original-ul').empty(); 
+				$('.resized-ul').empty(); 
+
 				
 
-				resizeObj.forEach((item)=>{
-					$('.original-ul').append(`<li>${item.qty} ${item.m} ${item.ing}</li>`)
-				})
+				let originNumber = $('.originalN').val(), 
+					needsToServe = $('.needsToServeN').val(),
+					rName = $('.r-name').val();
 
-		// result code: 
+				console.log(originNumber, needsToServe, rName);
+				let resizeObj = [];
+				let resultObj = [];
 
-		$('.resized-r .r-info-holder').empty().append(
-							`<h3>${rName} (Resized)</h3>
-							<p>Serves: ${needsToServe}</p>
-							<h3 class='ing-h3'>Ingredients</h3>`)
-				
+					$('.ing-holder .ing-qt').each(function(e,ing){
 
-				resultObj.forEach((item)=>{
-					$('.resized-ul').append(`<li>${item.qty} ${item.m} ${item.ing}</li>`)
-				})
+						let ingObj = {
+									  qty: $(ing).find('input').val(),
+									    m:  $(ing).find('.active-list').text(),
+									  ing: $(ing).find('.input-ing').val()
+									}
+						let reObj = {
+									  qty: (Number($(ing).find('input').val()) * (needsToServe/originNumber)).toFixed(2),
+									    m:  $(ing).find('.active-list').text(),
+									  ing: $(ing).find('.input-ing').val()
+						}
+
+						resizeObj.push(ingObj);
+						resultObj.push(reObj);
+
+					})	
+
+					// orignial code: 
+					$('.original-r .r-info-holder').empty().append(
+								`<h3>${rName}</h3>
+								<p>Serves: ${originNumber}</p>
+								<h3 class='ing-h3'>Ingredients</h3>`)
+					
+
+					resizeObj.forEach((item)=>{
+						$('.original-ul').append(`<li>${item.qty} ${item.m} ${item.ing}</li>`)
+					})
+
+			// result code: 
+
+			$('.resized-r .r-info-holder').empty().append(
+								`<h3>${rName} (Resized)</h3>
+								<p>Serves: ${needsToServe}</p>
+								<h3 class='ing-h3'>Ingredients</h3>`)
+					
+
+					resultObj.forEach((item)=>{
+						$('.resized-ul').append(`<li>${item.qty} ${item.m} ${item.ing}</li>`)
+					})
 
 
-		  }else{
-			new Noty({
-			    type: 'error',
-			    layout: 'topLeft',
-			    text: '<h4>A field is missing. Please fill all inputs and options</h4>',
-			    timeout:3000,
-			    progressBar:true
-			}).show(2000);
-			return false
+			  }else{
+				new Noty({
+				    type: 'error',
+				    layout: 'topLeft',
+				    text: '<h4>A field is missing. Please fill all inputs and options</h4>',
+				    timeout:3000,
+				    progressBar:true
+				}).show(2000);
+				return false
 
-		  }
-		});
+			  }
+			});
+		}
+		
+
+		
 
 
 
