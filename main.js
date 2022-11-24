@@ -151,7 +151,7 @@ $(document).ready(function(ev){
 
 
 			(async () => {
-			  const rawResponse = await fetch('https://foodtrucker-api-production.up.railway.app/', {
+			  const rawResponse = await fetch('https://foodtrucker-api-production.up.railway.app/calc', {
 			    method: 'POST',
 			    headers: {
 			      'Accept': 'application/json',
@@ -316,7 +316,7 @@ $(document).ready(function(ev){
 			};
 			
 			(async () => {
-			  const rawResponse = await fetch('https://foodtrucker-api-production.up.railway.app/', {
+			  const rawResponse = await fetch('https://foodtrucker-api-production.up.railway.app/calc', {
 			    method: 'POST',
 			    headers: {
 			      'Accept': 'application/json',
