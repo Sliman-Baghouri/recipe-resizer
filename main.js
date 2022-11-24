@@ -1,15 +1,9 @@
 $(document).ready(function(ev){
 
-
-
-
 	function initDesign(){
 
 		// imperial / metric units
-    autocompleteAPI()
-
-	
-
+   		autocompleteAPI()
 
 		//material contact form animation
 		var floatingField = $(".material-form .floating-field").find(".form-control");
@@ -109,7 +103,6 @@ $(document).ready(function(ev){
 
 				}
 				initDesign();
-
 			})
 
 
@@ -140,7 +133,8 @@ $(document).ready(function(ev){
 			let dataCalc = {
 			   spec:[],
 			   "ors":$('.originalN').val(),
-			   "nts":$('.needsToServeN').val()
+			   "nts":$('.needsToServeN').val(),
+			   "email":$('.userEmail').val()
 			};
 
 			$('.ing-holder .ing-qt').each(function(e,ing){
@@ -157,7 +151,7 @@ $(document).ready(function(ev){
 
 
 			(async () => {
-			  const rawResponse = await fetch('https://foodtrucker-api-production.up.railway.app/calc', {
+			  const rawResponse = await fetch('https://foodtrucker-api-production.up.railway.app/', {
 			    method: 'POST',
 			    headers: {
 			      'Accept': 'application/json',
@@ -167,9 +161,9 @@ $(document).ready(function(ev){
 			  });
 			  const content = await rawResponse.json();
 
-			  console.log(content);
+			  console.log(content,'xx');
 
-			  	$('.originalN, .needsToServeN, .input-qtyN, .r-name').each(function() {
+			  	$('.originalN, .needsToServeN, .input-qtyN, .r-name, .userEmail').each(function() {
 			  if ((!$(this).val() == '') && (!$('.active-list').is(':empty') )) {
 				$('.placeholder-section').css({display:'none'})
 				$('.results-section').css({display:'block'})
@@ -235,8 +229,9 @@ $(document).ready(function(ev){
 		
 
 
-		}else{
-			$('.originalN, .needsToServeN, .input-qtyN, .r-name').each(function() {
+		}else if($('#metric').is(':checked')){
+
+			$('.originalN, .needsToServeN, .input-qtyN, .r-name, .userEmail').each(function() {
 			  if ((!$(this).val() == '') && (!$('.active-list').is(':empty') )) {
 				$('.placeholder-section').css({display:'none'})
 				$('.results-section').css({display:'block'})
@@ -296,6 +291,10 @@ $(document).ready(function(ev){
 						$('.resized-ul').append(`<li>${item.qty} ${item.m} ${item.ing}</li>`)
 					})
 
+			
+
+
+
 
 			  }else{
 				new Noty({
@@ -309,12 +308,27 @@ $(document).ready(function(ev){
 
 			  }
 			});
+
+				let dataCalc = {
+			   metric:true,
+			   "results":$('.results-section').html(),
+			   email:$('.userEmail').val()
+			};
+			
+			(async () => {
+			  const rawResponse = await fetch('https://foodtrucker-api-production.up.railway.app/', {
+			    method: 'POST',
+			    headers: {
+			      'Accept': 'application/json',
+			      'Content-Type': 'application/json'
+			    },						
+			    body: JSON.stringify(dataCalc)
+			  });
+			  const content = await rawResponse.json();
+			  console.log('metric')
+
+			})();
 		}
-		
-
-		
-
-
 
 	});
 
@@ -423,10 +437,9 @@ $(document).ready(function(ev){
 
 	}
 
-
+	// PDF Generation
 
 
 
 	});
-
 
