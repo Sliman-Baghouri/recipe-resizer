@@ -152,7 +152,7 @@ $(document).ready(function(ev){
 			
 
 			(async () => {
-			  const rawResponse = await fetch('http://localhost:3030/calc', {
+			  const rawResponse = await fetch('https://foodtrucker-api-production.up.railway.app/calc', {
 			    method: 'POST',
 			    headers: {
 			      'Accept': 'application/json',
@@ -348,7 +348,7 @@ $(document).ready(function(ev){
 						if( /(.+)@(.+){2,}\.(.+){2,}/.test(dataCalc.email) ){
 						  	console.log('sent!');
 							(async () => {
-							  const rawResponse = await fetch('http://localhost:3030/sendPDF', {
+							  const rawResponse = await fetch('https://foodtrucker-api-production.up.railway.app/sendPDF', {
 							    method: 'POST',
 							    headers: {
 							      'Accept': 'application/json',
