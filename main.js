@@ -134,7 +134,7 @@ $(document).ready(function(ev){
 			   spec:[],
 			   "ors":$('.originalN').val(),
 			   "nts":$('.needsToServeN').val(),
-			   "email":$('.userEmail').val()
+			   // "email":$('.userEmail').val()
 			};
 
 			$('.ing-holder .ing-qt').each(function(e,ing){
@@ -149,9 +149,10 @@ $(document).ready(function(ev){
 			})	
 			dataCalc.spec.forEach((i)=>{i.m = (unitIndex[i.m]).toString()});
 
+			
 
 			(async () => {
-			  const rawResponse = await fetch('https://foodtrucker-api-production.up.railway.app/calc', {
+			  const rawResponse = await fetch('http://localhost:3030/calc', {
 			    method: 'POST',
 			    headers: {
 			      'Accept': 'application/json',
@@ -163,7 +164,7 @@ $(document).ready(function(ev){
 
 			  console.log(content,'xx');
 
-			  	$('.originalN, .needsToServeN, .input-qtyN, .r-name, .userEmail').each(function() {
+			  	$('.originalN, .needsToServeN, .input-qtyN, .r-name').each(function() {
 			  if ((!$(this).val() == '') && (!$('.active-list').is(':empty') )) {
 				$('.placeholder-section').css({display:'none'})
 				$('.results-section').css({display:'block'})
@@ -208,6 +209,7 @@ $(document).ready(function(ev){
 								<h3 class='ing-h3'>Ingredients</h3>`)
 			$('.resized-r .resized-ul').empty().append(content)
 					
+			$('.print-btn').css({display:'block'});
 
 
 			  }else{
@@ -231,10 +233,10 @@ $(document).ready(function(ev){
 
 		}else if($('#metric').is(':checked')){
 
-			$('.originalN, .needsToServeN, .input-qtyN, .r-name, .userEmail').each(function() {
+			$('.originalN, .needsToServeN, .input-qtyN, .r-name').each(function() {
 			  if ((!$(this).val() == '') && (!$('.active-list').is(':empty') )) {
 				$('.placeholder-section').css({display:'none'})
-				$('.results-section').css({display:'block'})
+				$('.results-section, .print-btn').css({display:'block'})
 
 				// clearing past values
 				$('.original-ul').empty(); 
@@ -309,28 +311,93 @@ $(document).ready(function(ev){
 			  }
 			});
 
-				let dataCalc = {
-			   metric:true,
-			   "results":$('.results-section').html(),
-			   email:$('.userEmail').val()
-			};
+				
 			
-			(async () => {
-			  const rawResponse = await fetch('https://foodtrucker-api-production.up.railway.app/calc', {
-			    method: 'POST',
-			    headers: {
-			      'Accept': 'application/json',
-			      'Content-Type': 'application/json'
-			    },						
-			    body: JSON.stringify(dataCalc)
-			  });
-			  const content = await rawResponse.json();
-			  console.log('metric')
+			
 
-			})();
+			
 		}
 
 	});
+
+	$('.print-btn').click(()=>{
+			
+				(async () => {
+
+				const { value: formValues } = await Swal.fire({
+				  title: 'Where should we send it?',
+				  html:
+				    '<input id="swal-input1" required placeholder="Name" class="swal2-input">' +
+				    '<input id="swal-input2" placeholder="Company (optional)"  class="swal2-input">' + 
+				    '<input id="swal-input3" required  placeholder="Email"  class="swal2-input">',
+				  focusConfirm: false,
+				  confirmButtonText:'Send it',
+				  confirmButtonColor:'#F28F48',
+			      customClass: 'swal-wide',
+				  preConfirm: () => {
+					let dataCalc = {
+					   "results":$('.results-section').html(),
+					   email:$('#swal-input3').val(),
+					   name:$('#swal-input1').val(),
+					   company:$('#swal-input2').val(),
+					};
+						console.log('email val', dataCalc.email);
+						console.log('email val', Boolean(dataCalc.email));
+
+					if(dataCalc.email && dataCalc.name){
+						if( /(.+)@(.+){2,}\.(.+){2,}/.test(dataCalc.email) ){
+						  	console.log('sent!');
+							(async () => {
+							  const rawResponse = await fetch('http://localhost:3030/sendPDF', {
+							    method: 'POST',
+							    headers: {
+							      'Accept': 'application/json',
+							      'Content-Type': 'application/json'
+							    },						
+							    body: JSON.stringify(dataCalc)
+							  });
+							  const content = await rawResponse.json();
+							})();	
+						} else {
+						 	Swal.fire({
+							title:'Invalid Email. Try again',
+							text:'Make sure your email is valid',
+							icon:'warning',
+							confirmButtonColor:'#F28F48',
+						});
+						return false;
+						}
+
+					
+					}else{
+						Swal.fire({
+							title:'Fill in required information',
+							text:'Make sure inputs are filled or valid',
+							icon:'error',
+							confirmButtonColor:'#F28F48',
+						});
+						return false;
+					}
+
+									  	
+				  }
+				}).then((result)=>{
+					if(result.isConfirmed){
+					Swal.fire({
+						title:'PDF Sent!',
+						text:'Check your email to find it',
+						icon:'success',
+						confirmButtonColor:'#F28F48',
+					});
+
+					}
+				})
+
+				if (formValues) {
+				  Swal.fire(JSON.stringify(formValues))
+				}
+				})()
+			})
 
 	$('.add-btn').click(function(e){
 				e.preventDefault();

@@ -214,9 +214,6 @@ html{
   margin-bottom: 15px;
 }
 .material-form .square-button {
-  background-color: #F28F48;
-  color: #fff;
-  font-size: 20px;
   text-transform: uppercase;
   font-weight: 700;
   text-align: center;
@@ -233,8 +230,13 @@ html{
   cursor: pointer;
   width: 100%;
 }
+.material-form .square-button:last-child{
+  border: 2px solid #F28F48;
+  color: #F28F48;
+  background: white;  font-size: 20px;
+
+}
 .material-form .square-button:hover, .material-form .square-button:focus {
-  background-color: #F28F48;
 }
 
 /*dropdown list as ul li method*/
@@ -485,6 +487,25 @@ html{
 .cta-holder{
   display: flex;
 }
+
+.print-btn{
+    display: none;
+    margin-left: 10%;
+    padding: 16px;
+    cursor: pointer;
+    border: none;
+    font-size: 17px;
+    font-weight: bold;
+    color: white;
+    background: #F28F48;
+    box-shadow: 1px 4px 34px rgb(0 0 0 / 10%);
+    transition: .2s;
+}
+
+.print-btn:hover{
+  transform: translateY(3px);
+}
+
 .add-btn{
   margin-right: 25px;
   font-size: 15px !important;
@@ -500,9 +521,10 @@ html{
   transform: translate(-9px, 5px);
 }
 
-.logo img{
-  width: 100px;
-  height: auto;
+.logo svg{
+    transform: scale(.7);
+    margin-top: 9%;
+    margin-left: -32px;    
 }
 
 header{
@@ -519,6 +541,10 @@ justify-content: center;
   flex: .1;
 }
 
+.btn-submit{
+
+}
+
 /* responsive  */
 
 @media (max-width: 768px) {
@@ -529,6 +555,33 @@ justify-content: center;
 } 
 
 @media (max-width: 500px) {
+     .logo svg{
+      margin-left:0 !important;    
+  }
+
+  .print-btn{
+    padding: 14px;
+    margin-left: 0;
+  }
+
+  .swal-wide{
+    width: 300px !important;
+  transform: translateX(-10%);    
+  }
+  .swal2-html-container{
+    padding: 0 !important;
+    margin: 0 !important;
+
+  }
+  .swal-wide .swal2-input{
+    margin: 1em 0em 3px !important;
+  }
+
+  .swal-wide .swal2-title{
+    font-size: 25px !important;
+  }
+
+
     .foodRes{
       margin-right: 0 !important;
       width: 129px !important;
@@ -881,3 +934,4 @@ input#metric, input#imperial {
         position:absolute;
         animation: saucepan-move 1500ms infinite normal ease-in-out;
       }}
+
