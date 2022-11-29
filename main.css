@@ -10,6 +10,7 @@ html{
 	background-repeat: no-repeat;
 	/*overflow-x: hidden;*/
 }
+body{overflow-x: hidden;}
 
 .container{
 	max-width: 1200px;
@@ -421,7 +422,7 @@ html{
 
 @media (min-width: 768px) {
   .contact-wrap {
-    width: 475px;
+    width: 540px;
   }
 
   .material-form .input-block label {
@@ -555,6 +556,20 @@ justify-content: center;
 } 
 
 @media (max-width: 500px) {
+.resized-r h3 {
+    margin-top: 35px;
+}
+.converter-inputs svg{
+  width: 20px;
+  height: 20px;
+  transform: none;
+  margin-bottom: 16px;  
+  padding: 0;
+}
+
+.converter-inputs{
+  flex-direction: column;
+}
 
   .unit-holder label{
     font-size: 14px !important;
