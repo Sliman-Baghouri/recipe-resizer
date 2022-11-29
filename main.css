@@ -555,6 +555,14 @@ justify-content: center;
 } 
 
 @media (max-width: 500px) {
+
+  .unit-holder label{
+    font-size: 14px !important;
+  }
+  .swal2-popup.swal2-modal.swal2-icon-error.swal2-show, .swal2-popup.swal2-modal.swal2-icon-success.swal2-show{
+    width: 283px;
+    transform: translateX(-15%);
+  }
      .logo svg{
       margin-left:0 !important;    
   }

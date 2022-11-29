@@ -67,6 +67,8 @@ $(document).ready(function(ev){
 	}
 				
 	$("#imperial, #imperial-l, #metric").click(function(){
+			$('.active-list').empty();
+			$('.select-block').removeClass('focus, added')
 			if($(this).attr('id') === 'imperial'){
 				$('.drop-down-list').empty().append(`
 						  <li>Cups</li>
@@ -92,7 +94,6 @@ $(document).ready(function(ev){
 				}else{
 				$('.drop-down-list').empty().append(`
 						  <li>Cups</li>
-				          <li>Gallons</li>
 				          <li>Ounces</li>
 				          <li>Pints</li>
 				          <li>Quarts</li>
@@ -126,6 +127,7 @@ $(document).ready(function(ev){
 		let unitIndex = {Cups:1, Dashes:2,Ounces:3,Pinches:4,Tablespoon:5,Teaspoons:6,Pounds:7,Each:8,Cups:9,Gallons:10,Ounces:11,Pints:12,Quarts:13,Tablespoons:14,Teaspoons:15}
 		
 		if($('#imperial').is(':checked') || $('#imperial-l').is(':checked')){
+			if (!$('.active-list').is(':empty')) {
 
 			$('.img-placeholder, .h2-placeholder').css({display:'none'});
 			$('.box , .loadingp').css({display:'block'});
@@ -165,7 +167,6 @@ $(document).ready(function(ev){
 			  console.log(content,'xx');
 
 			  	$('.originalN, .needsToServeN, .input-qtyN, .r-name').each(function() {
-			  if ((!$(this).val() == '') && (!$('.active-list').is(':empty') )) {
 				$('.placeholder-section').css({display:'none'})
 				$('.results-section').css({display:'block'})
 
@@ -212,6 +213,12 @@ $(document).ready(function(ev){
 			$('.print-btn').css({display:'block'});
 
 
+			});
+			$('.active-list').empty();
+			$('.select-block').removeClass('focus, added');
+			$('input').val('')
+
+			})();
 			  }else{
 				new Noty({
 				    type: 'error',
@@ -223,17 +230,16 @@ $(document).ready(function(ev){
 				return false
 
 			  }
-			});
 
-
-			})();
 
 		
 
 
 		}else if($('#metric').is(':checked')){
 
-			$('.originalN, .needsToServeN, .input-qtyN, .r-name').each(function() {
+			$('.originalN, .needsToServeN, .input-qtyN, .r-name, .input-ing').each(function(i,item) {
+				if(!$('.input-ing').val() == ''){
+
 			  if ((!$(this).val() == '') && (!$('.active-list').is(':empty') )) {
 				$('.placeholder-section').css({display:'none'})
 				$('.results-section, .print-btn').css({display:'block'})
@@ -292,33 +298,41 @@ $(document).ready(function(ev){
 					resultObj.forEach((item)=>{
 						$('.resized-ul').append(`<li>${item.qty} ${item.m} ${item.ing}</li>`)
 					})
+			$('.active-list').empty();
+			$('.select-block').removeClass('focus, added');
+			$('input').val('')
+			return false;
+		  				}else{
+			new Noty({
+			    type: 'error',
+			    layout: 'topLeft',
+			    text: '<h4>A field is missing. Please fill all inputs and options</h4>',
+			    timeout:3000,
+			    progressBar:true
+			}).show(2000);
 
-			
+			return false;
 
+		  				}
 
+		  }else{
+			new Noty({
+			    type: 'error',
+			    layout: 'topLeft',
+			    text: '<h4>A field is missing. Please fill all inputs and options</h4>',
+			    timeout:3000,
+			    progressBar:true
+			}).show(2000);
 
-
-			  }else{
-				new Noty({
-				    type: 'error',
-				    layout: 'topLeft',
-				    text: '<h4>A field is missing. Please fill all inputs and options</h4>',
-				    timeout:3000,
-				    progressBar:true
-				}).show(2000);
-				return false
-
-			  }
-			});
-
-				
-			
-			
-
-			
-		}
+			return false;
+		  }
+		});
+	}
 
 	});
+
+	// Reseting values
+
 
 	$('.print-btn').click(()=>{
 			
